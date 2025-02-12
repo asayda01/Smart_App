@@ -2,8 +2,6 @@
 
 # Smart App - Document Classification Web Application
 
-![Smart App Logo](https://raw.githubusercontent.com/asayda01/smart_app/frontend/public/comp_j_logo.png) <!-- Replace with your logo if available -->
-
 Smart App is a web application that allows users to upload documents, classify them into predefined categories using a pre-trained machine learning model, and view the classification results. The application is built with a **FastAPI backend** and a **React frontend**, leveraging modern tools and libraries for seamless functionality.
 
 ---
@@ -173,7 +171,7 @@ For questions or feedback, please contact:
 
 ---
 
-[![Download README.md](https://img.shields.io/badge/Download-README.md-blue)](https://raw.githubusercontent.com/asayda01/smart_app/main/README.md)
+[![Download README.md](https://img.shields.io/badge/Download-README.md-blue)](https://raw.githubusercontent.com/asayda01/smart_app/README.md)
 
 ---
 
