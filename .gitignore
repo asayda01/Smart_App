@@ -1,0 +1,25 @@
+# Local IDE settings
+.idea/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# virtual environment
+venv/
+
+# SQLAlchemy and PostgreSQL files
+.pytest_cache/
+.env
+
+# Node Modules
+node_modules/
+#frontend/node_modules/
+
+# Docker files
+#docker-compose.yml
+#Dockerfile.Dockerfile
+
+# Local Database
+documents.db

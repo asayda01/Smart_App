@@ -1,0 +1,17 @@
+# smart_app\.dockerignore
+
+.idea
+.pytest_cache
+venv
+__pycache__
+.env
+backend/tests
+frontend
+node_modules
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+logs/
+postgres_data/
+*.db

@@ -1,0 +1,43 @@
+/* frontend/src/styles/Upload.css */
+
+.dropzone {
+  border: 2px dashed #007bff;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background: #eef5ff;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.dropzone:hover {
+  background: #ddeeff;
+  border-color: #0056b3;
+}
+
+.dropzone.active {
+  background: #ddeeff;
+  border-color: #0056b3;
+}
+
+.uploading-alert {
+  text-align: center;
+  font-size: 16px;
+  color: #007bff;
+  background: #eef5ff;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin-bottom: 10px;
+  background: #ffe6e6;
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+}

@@ -1,0 +1,21 @@
+/* frontend/src/styles/Common.css */
+
+.loading-message {
+  text-align: center;
+  color: #ffffff;
+  background-color: #007bff;
+  padding: 10px;
+  border-radius: 20px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.no-data-message {
+  text-align: center;
+  color: #ffffff;
+  background: #ff0000;
+  padding: 10px;
+  border-radius: 20px;
+  margin-top: 20px;
+  width: 100%;
+}

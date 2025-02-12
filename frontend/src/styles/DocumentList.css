@@ -1,0 +1,89 @@
+/* frontend/src/styles/DocumentList.css */
+
+.uploaded-documents-title {
+  text-align: center;
+  color: #007bff;
+  background: #eef5ff;
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.document-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 15px;
+  width: 100%;
+}
+
+.document-list-item {
+  border: 1px solid #ddd;
+  padding: 20px 30px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  width: calc(33.333% - 20px); /* 3 items per row, with margin gap */
+  min-width: 250px; /* Set a minimum width for the items */
+  box-sizing: border-box;
+}
+
+.document-list-item:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+.document-list-item.selected {
+  background: #e0f7fa;
+}
+
+.document-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.document-summary span {
+  flex: 1;
+  text-align: center;
+}
+
+.document-details {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+  .document-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .document-list-item {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+.sort-dropdown {
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.sort-dropdown label {
+  margin-right: 10px;
+}
+
+.sort-dropdown select {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
