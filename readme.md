@@ -9,7 +9,7 @@ Smart App is a web application that allows users to upload documents, classify t
 ## Features
 
 ### Backend
-- **Document Upload**: Users can upload `.txt` files, which are processed and classified by the backend.
+- **Document Upload**: Users can upload `.txt` , `.pdf` and `.docx` files, which are processed and classified by the backend.
 - **Document Classification**: Uses the `facebook/bart-large-mnli` model for zero-shot classification into categories:
   - Technical Documentation
   - Business Proposal
@@ -141,7 +141,6 @@ Alternatives considered:
 ---
 
 ## Future Improvements
-- Support for additional file formats (PDF, DOCX).
 - Enhanced error handling and user feedback.
 - Integration of newer ML models for improved accuracy.
 - Expanded testing coverage (unit and integration tests).
@@ -166,8 +165,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## Contact
 
 For questions or feedback, please contact:
-- **Jem**
-  GitHub: [asayda01](https://github.com/asayda01)
+-  GitHub: [asayda01](https://github.com/asayda01)
 
 ---
 
