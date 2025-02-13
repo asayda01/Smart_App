@@ -14,11 +14,11 @@ export const DocumentCard = React.memo(({ document, isExpanded, onToggle }) => {
   const confidenceColor = getConfidenceColor(confidenceValue);
   const confidenceLevel = getConfidenceLevel(confidenceValue);
 
-  // Get file extension
-  const fileExtension = document.filename.split('.').pop(); // Retrieves the file extension (e.g., 'pdf', 'docx', 'txt')
+  // Extract file extension
+  const fileExtension = document.filename.split('.').pop();
 
   // Limit filename to first 30 characters and append the file type
-  const truncatedFilename = document.filename.length > 50
+  const truncatedFilename = document.filename.length > 45
     ? document.filename.substring(0, 30) + `... .${fileExtension}`
     : document.filename;
 
