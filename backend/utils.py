@@ -3,11 +3,15 @@
 
 # Standard Library Imports
 import re
+import logging
 
 # Third-party Imports
 import nltk
+from PyPDF2 import PdfReader
 from nltk.corpus import stopwords
-from transformers import AutoTokenizer,pipeline
+from fastapi import HTTPException
+from docx import Document as DocxDocument
+from transformers import AutoTokenizer, pipeline
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import sent_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -50,7 +54,6 @@ def chunk_text_by_tokens(text: str, max_tokens: int = 512) -> list:
 
 
 def chunk_text_by_sentences(text: str, max_sentences: int = 7) -> list:
-
     sentences = sent_tokenize(text)
     chunks = []
     current_chunk = []
@@ -73,11 +76,22 @@ def chunk_text_by_sentences(text: str, max_sentences: int = 7) -> list:
 
 def summarize_large_text(text: str, summary_ratio: float = 0.2) -> str:
     """
-    Summarize large text using BART summarization model.
+    Summarize large text using BART summarization model with chunking.
     """
-    max_length = int(len(text.split()) * summary_ratio)
-    summary = summarizer(text, max_length=max_length, min_length=30, do_sample=False)
-    return summary[0]['summary_text']
+    max_length = 500  # Limit each summarization chunk to 500 tokens (safe for BART)
+    min_length = 100  # Ensure meaningful summaries
+    chunked_texts = chunk_text_by_sentences(text, max_sentences=10)
+
+    summaries = []
+    for chunk in chunked_texts:
+        try:
+            summary = summarizer(chunk, max_length=max_length, min_length=min_length, do_sample=False)
+            summaries.append(summary[0]['summary_text'])
+        except Exception as e:
+            logging.error(f"Summarization failed for chunk: {e}")
+            continue  # Skip failed chunks
+
+    return " ".join(summaries) if summaries else text[:2000]  # Fallback if all chunks fail
 
 
 def extract_keywords(text: str, max_features: int = 10) -> list:
@@ -85,3 +99,31 @@ def extract_keywords(text: str, max_features: int = 10) -> list:
     tfidf_matrix = vectorizer.fit_transform([text])
     feature_names = vectorizer.get_feature_names_out()
     return feature_names.tolist()
+
+
+def extract_text_from_file(file_path: str, file_extension: str) -> str:
+    """
+    Extract text from different file formats and ensure text length is manageable.
+    """
+    try:
+        if file_extension == '.txt':
+            with open(file_path, 'r', encoding='utf-8') as f:
+                text = f.read()
+        elif file_extension == '.pdf':
+            reader = PdfReader(file_path)
+            text = " ".join(page.extract_text() or "" for page in reader.pages)
+        elif file_extension == '.docx':
+            doc = DocxDocument(file_path)
+            text = "\n".join(paragraph.text for paragraph in doc.paragraphs)
+        else:
+            raise HTTPException(status_code=400, detail="Unsupported file format")
+
+        # Ensure extracted text is within a reasonable limit (5000 words)
+        word_limit = 5000
+        words = text.split()
+        if len(words) > word_limit:
+            text = " ".join(words[:word_limit])  # Trim text
+
+        return text
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error extracting text: {str(e)}")

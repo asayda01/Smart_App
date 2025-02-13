@@ -15,19 +15,22 @@ from fastapi import APIRouter, File, UploadFile, HTTPException, Depends
 from .models import Document
 from .database import get_db
 from .schemas import DocumentResponse
+from .utils import extract_text_from_file
 from .ml_model import classify_text, categories
-from .exceptions import InvalidFileType, LowConfidencePrediction, ModelInferenceError
-
+from .exceptions import InvalidFileType, ModelInferenceError
 
 # Initialize FastAPI Router
 router = APIRouter()
 
 
+# backend/router.py
+
 @router.post("/upload/", response_model=DocumentResponse, summary="Upload a document and classify it")
 async def upload_file(file: UploadFile = File(...), db: AsyncSession = Depends(get_db)):
     try:
         # Validate file type
-        if not file.filename.endswith(".txt"):
+        file_extension = os.path.splitext(file.filename)[1].lower()
+        if file_extension not in ['.txt', '.pdf', '.docx']:
             raise InvalidFileType()
 
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -35,8 +38,8 @@ async def upload_file(file: UploadFile = File(...), db: AsyncSession = Depends(g
             with open(file_path, "wb") as buffer:
                 shutil.copyfileobj(file.file, buffer)
 
-            with open(file_path, "r", encoding="utf-8") as f:
-                content = f.read()
+            # Extract text based on file extension
+            content = extract_text_from_file(file_path, file_extension)
 
             if not content:
                 raise HTTPException(status_code=400, detail="File is empty")
@@ -44,11 +47,6 @@ async def upload_file(file: UploadFile = File(...), db: AsyncSession = Depends(g
             # Classify the text
             try:
                 predicted_category, confidence_scores = classify_text(content)
-            except LowConfidencePrediction as e:
-                logging.warning(f"Low confidence prediction: {e}")
-                predicted_category = "Other"
-                confidence_scores = {category: 0.0 for category in categories}
-                confidence_scores["Other"] = 1.0
             except Exception as e:
                 logging.error(f"Error during classification: {e}")
                 raise ModelInferenceError(str(e))

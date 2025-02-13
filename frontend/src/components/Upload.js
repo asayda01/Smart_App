@@ -38,7 +38,7 @@ export const Upload = () => {
       {isUploading ? (
         <LoadingSpinner />
       ) : (
-        <p>{isDragActive ? "Drop the file here..." : "Drag & drop a .txt file here, or click to select one"}</p>
+        <p>{isDragActive ? "Drop the file here..." : "Drag & drop a .txt, .pdf, and .docx file here, or click to select one"}</p>
       )}
     </div>
   );

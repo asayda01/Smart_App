@@ -7,7 +7,7 @@ from fastapi import HTTPException
 
 class InvalidFileType(HTTPException):
     def __init__(self):
-        super().__init__(status_code=400, detail="Only .txt files are allowed")
+        super().__init__(status_code=400, detail="Only .txt, .pdf, and .docx files are allowed")
 
 
 class LowConfidencePrediction(HTTPException):
