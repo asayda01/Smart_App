@@ -23,7 +23,7 @@ from .exceptions import InvalidFileType, LowConfidencePrediction, ModelInference
 router = APIRouter()
 
 
-@router.post("/upload/")
+@router.post("/upload/", response_model=DocumentResponse, summary="Upload a document and classify it")
 async def upload_file(file: UploadFile = File(...), db: AsyncSession = Depends(get_db)):
     try:
         # Validate file type
@@ -43,7 +43,7 @@ async def upload_file(file: UploadFile = File(...), db: AsyncSession = Depends(g
 
             # Classify the text
             try:
-                predicted_category, confidence_scores = classify_text(content, confidence_threshold=0.25)
+                predicted_category, confidence_scores = classify_text(content)
             except LowConfidencePrediction as e:
                 logging.warning(f"Low confidence prediction: {e}")
                 predicted_category = "Other"
@@ -66,6 +66,7 @@ async def upload_file(file: UploadFile = File(...), db: AsyncSession = Depends(g
             await db.refresh(db_document)
 
             return {
+                "id": db_document.id,
                 "filename": file.filename,
                 "predicted_category": predicted_category,
                 "confidence_scores": confidence_scores,
@@ -79,7 +80,7 @@ async def upload_file(file: UploadFile = File(...), db: AsyncSession = Depends(g
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.get("/documents/", response_model=list[DocumentResponse])
+@router.get("/documents/", response_model=list[DocumentResponse], summary="Retrieve classified documents")
 async def get_documents(db: AsyncSession = Depends(get_db)):
     try:
         result = await db.execute(Document.__table__.select())
