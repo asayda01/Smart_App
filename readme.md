@@ -41,7 +41,7 @@ Smart App is a web application that allows users to upload documents, classify t
 - **SQLAlchemy**: For ORM and database interactions.
 - **Hugging Face Transformers**: For zero-shot classification using the `facebook/bart-large-mnli` model.
 - **Pydantic**: For data validation.
-- **PyPDF2** and **python-docx**: For handling additional file formats (future implementation).
+- **PyPDF2** and **python-docx**: For handling additional file formats.
 - **Pytest**: For testing.
 
 ### Frontend
@@ -143,7 +143,7 @@ Alternatives considered:
 ## Future Improvements
 - Enhanced error handling and user feedback.
 - Integration of newer ML models for improved accuracy.
-- Expanded testing coverage (unit and integration tests).
+- Expanded testing coverage.
 
 ---
 
@@ -169,7 +169,7 @@ For questions or feedback, please contact:
 
 ---
 
-[![Download README.md](https://img.shields.io/badge/Download-README.md-blue)](https://raw.githubusercontent.com/asayda01/smart_app/README.md)
+-[![Download README.md](https://img.shields.io/badge/Download-README.md-blue)](https://raw.githubusercontent.com/asayda01/smart_app/main/README.md)
 
 ---
 
