@@ -32,7 +32,11 @@ export const uploadFile = async (file, onUploadProgress) => { // Upload a file t
     });
     return response.data; // Return response data
   } catch (error) {
-    throw new Error(error.response?.data?.message || "Failed to upload file."); // Handle errors
+    // Handle corrupted file error from the backend
+    if (error.response && error.response.data && error.response.data.detail) {
+      throw new Error(error.response.data.detail); // Use the error detail from the backend
+    }
+    throw new Error("Failed to upload file."); // Fallback to a generic error
   }
 };
 

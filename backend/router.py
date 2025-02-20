@@ -17,7 +17,7 @@ from .database import get_db
 from .schemas import DocumentResponse
 from .utils import extract_text_from_file
 from .ml_model import classify_text
-from .exceptions import InvalidFileType, ModelInferenceError
+from .exceptions import InvalidFileType, ModelInferenceError, CorruptedFile
 
 
 # Initialize FastAPI Router
@@ -41,7 +41,12 @@ async def upload_file(file: UploadFile = File(...), db: AsyncSession = Depends(g
                 shutil.copyfileobj(file.file, buffer)  # Copy the uploaded file into the temp directory
 
             # Extract text from file based on file extension
-            content = extract_text_from_file(file_path, file_extension)
+            try:
+                content = extract_text_from_file(file_path, file_extension)
+            except Exception as e:
+                # If there's an error while extracting text, raise a CorruptedFile error
+                logging.error(f"Error extracting text from file: {e}")
+                raise CorruptedFile("This file appears to be corrupted. Please upload a valid file.")
 
             # Check if the extracted content is empty
             if not content:
@@ -76,7 +81,6 @@ async def upload_file(file: UploadFile = File(...), db: AsyncSession = Depends(g
                 "upload_time": db_document.upload_time,
             }
 
-    # Raise the HTTP exception if one occurred
     except HTTPException as e:
         raise e
     except Exception as e:

@@ -27,4 +27,10 @@ class DatabaseError(HTTPException):
 # Custom exception for model inference errors
 class ModelInferenceError(HTTPException):
     def __init__(self, message: str):
-        super().__init__(status_code=500, detail=f"Model inference error: {message}")
+        super().__init__(status_code=400, detail=f"Model inference error: {message}")
+
+
+# Custom exception for corrupted file upload attempt errors
+class CorruptedFile(HTTPException):
+    def __init__(self, message: str):
+        super().__init__(status_code=400, detail=message)

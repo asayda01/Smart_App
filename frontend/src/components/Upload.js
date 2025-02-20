@@ -55,24 +55,32 @@ export const Upload = () => {
         }
       }, 200);
     } catch (error) {
-      setError(error.message); // Catch and set any upload error
-      setIsUploading(false); // Reset uploading state on error
+          // Check for corrupted file error from backend
+          if (error.response && error.response.data.detail) {
+            if (error.response.data.detail === "This file appears to be corrupted. Please upload a valid file.") {
+              setError("This file appears to be corrupted. Please upload a valid file.");
+            } else {
+              setError(error.response.data.detail || "Failed to upload file.");
+            }
+          } else {
+            setError(error.message || "Failed to upload file.");
+          }
+          setIsUploading(false); // Reset uploading state on error
+        }
+      };
+
+  // Configure dropzone properties and file type restrictions
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    onDropRejected: (fileRejections) => {
+      setError("Invalid file type. Please upload a .txt, .pdf, or .docx file.");
+    },
+    accept: {
+      "text/plain": [".txt"],
+      "application/pdf": [".pdf"],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
     }
-  };
-
-    // Configure dropzone properties and file type restrictions
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
-      onDrop,
-      onDropRejected: (fileRejections) => {
-        setError("Invalid file type. Please upload a .txt, .pdf, or .docx file.");
-      },
-      accept: {
-        "text/plain": [".txt"],
-        "application/pdf": [".pdf"],
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
-      }
-    });
-
+  });
 
   return (
     <Box className="upload-container">
