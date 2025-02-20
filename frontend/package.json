@@ -41,16 +41,26 @@
     ]
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.26.8",
+    "@babel/preset-env": "^7.26.9",
     "@babel/preset-react": "^7.26.3",
     "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
     "babel-jest": "^29.7.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.5.1",
     "jest-transform-stub": "^2.0.0"
   },
   "jest": {
+    "testEnvironment": "jsdom",
     "transform": {
       "^.+\\.css$": "jest-transform-stub",
       "^.+\\.jsx?$": "babel-jest"
-    }
+    },
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+    },
+    "transformIgnorePatterns": [
+    "node_modules/(?!(axios)/)"
+  ]
   }
 }

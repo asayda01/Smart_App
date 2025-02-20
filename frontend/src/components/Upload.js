@@ -53,7 +53,11 @@ export const Upload = () => {
     }
   };
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: ".txt" });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: {
+    "text/plain": [".txt"],
+    "application/pdf": [".pdf"],
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"]
+  } });
 
   return (
     <Box className="upload-container">

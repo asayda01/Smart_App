@@ -14,7 +14,6 @@ from docx import Document as DocxDocument
 from transformers import AutoTokenizer, pipeline
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import sent_tokenize
-# from sklearn.feature_extraction.text import TfidfVectorizer
 
 # Download NLTK resources
 nltk.download('stopwords')
@@ -89,13 +88,6 @@ def summarize_large_text(text: str) -> str:
             continue  # Skip failed chunks
 
     return " ".join(summaries) if summaries else text[:2000]  # Fallback if all chunks fail
-
-
-# def extract_keywords(text: str, max_features: int = 10) -> list:
-#     vectorizer = TfidfVectorizer(max_features=max_features)
-#     tfidf_matrix = vectorizer.fit_transform([text])
-#     feature_names = vectorizer.get_feature_names_out()
-#     return feature_names.tolist()
 
 
 def extract_text_from_file(file_path: str, file_extension: str) -> str:

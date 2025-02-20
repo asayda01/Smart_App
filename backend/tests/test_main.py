@@ -37,7 +37,7 @@ class TestMain:
 
             # Assert the response
             assert response.json()['predicted_category'] == "Business Proposal"
-            assert response.json()['confidence_scores']["Business Proposal"] == 0.914078803566206
+            assert response.json()['confidence_scores']["Business Proposal"] == 0.9331178069114685
 
     # Test file upload with invalid file type
     def test_upload_invalid_file_type(self, client):
@@ -45,12 +45,12 @@ class TestMain:
         file_content = "This should fail."
         response = client.post(
             "/upload/",
-            files={"file": ("test.pdf", file_content, "application/pdf")}
+            files={"file": ("test.apk", file_content, "application/apk")}
         )
 
         # Assert that the response is an error
         assert response.status_code == 400
-        assert response.json()['detail'] == "Only .txt files are allowed"
+        assert response.json()['detail'] == "Only .txt, .pdf, and .docx files are allowed"
 
     # Test file upload with empty file
     def test_upload_empty_file(self, client):

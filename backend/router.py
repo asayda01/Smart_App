@@ -16,14 +16,12 @@ from .models import Document
 from .database import get_db
 from .schemas import DocumentResponse
 from .utils import extract_text_from_file
-from .ml_model import classify_text, categories
+from .ml_model import classify_text
 from .exceptions import InvalidFileType, ModelInferenceError
 
 # Initialize FastAPI Router
 router = APIRouter()
 
-
-# backend/router.py
 
 @router.post("/upload/", response_model=DocumentResponse, summary="Upload a document and classify it")
 async def upload_file(file: UploadFile = File(...), db: AsyncSession = Depends(get_db)):
