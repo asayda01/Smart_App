@@ -1,72 +1,78 @@
 // frontend/src/components/DocumentList.js
 
 import React, { useEffect, useState, useRef } from "react";
-import { useDocuments } from "../context/DocumentContext";
-import { fetchDocuments } from "../services/api";
-import { DocumentCard } from "./DocumentCard";
-import { LoadingSpinner } from "./LoadingSpinner";
-import { Pagination } from "./Pagination";
-import { ErrorDisplay } from "./ErrorDisplay";
-import "../styles/DocumentList.css";
-import "../styles/Common.css";
-import { sortDocuments } from "./sortDocuments";
+import { useDocuments } from "../context/DocumentContext"; // Access document context state and actions
+import { fetchDocuments } from "../services/api"; // Import API call for fetching documents
+import { DocumentCard } from "./DocumentCard"; // Import DocumentCard component to render document details
+import { LoadingSpinner } from "./LoadingSpinner"; // Import loading spinner component for loading state
+import { Pagination } from "./Pagination"; // Import pagination component for navigating document pages
+import { ErrorDisplay } from "./ErrorDisplay"; // Import error display component for showing errors
+import "../styles/DocumentList.css"; // Import styles specific to DocumentList component
+import "../styles/Common.css"; // Import common styles shared across components
+import { sortDocuments } from "./sortDocuments"; // Import utility function for sorting documents
 
 export const DocumentList = () => {
+  // Set up state and context
   const { documents, setDocuments, error, setError, loading, removeDocument } = useDocuments();
-  const [expandedDocumentId, setExpandedDocumentId] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [documentsPerPage] = useState(9);
-  const [sortOption, setSortOption] = useState("upload_time_desc"); /* default : Latest -> Oldest */
-  const hasFetched = useRef(false);
+  const [expandedDocumentId, setExpandedDocumentId] = useState(null); // State to track currently expanded document
+  const [isLoading, setIsLoading] = useState(false); // State to track loading state while fetching documents
+  const [currentPage, setCurrentPage] = useState(1); // State for current page in pagination
+  const [documentsPerPage] = useState(9); // Number of documents to display per page
+  const [sortOption, setSortOption] = useState("upload_time_desc"); /* default: Sort by upload time in descending order */
+  const hasFetched = useRef(false); // Ref to track if data has been fetched
 
   useEffect(() => {
-    if (hasFetched.current) return;
-    hasFetched.current = true;
+    // Effect to fetch documents on component mount
+    if (hasFetched.current) return; // Prevent fetching if data has already been fetched
+    hasFetched.current = true; // Set ref to prevent future fetches
 
     const fetchData = async () => {
-      setIsLoading(true);
+      // Async function to fetch documents
+      setIsLoading(true); // Set loading state before fetching
       try {
-        const data = await fetchDocuments();
-        setDocuments(data);
-        setError(""); // Clear previous error
+        const data = await fetchDocuments(); // Fetch documents from API
+        setDocuments(data); // Set fetched documents in context
+        setError(""); // Clear any previous errors
       } catch (err) {
         setError("Failed to fetch documents. Please check your network connection.");
       } finally {
-        setIsLoading(false);
+        setIsLoading(false); // Reset loading state after fetch completion
       }
     };
 
-    fetchData();
-  }, [setDocuments, setError]);
+    fetchData(); // Call the fetch data function
+  }, [setDocuments, setError]); // Dependencies array
 
   const handleToggle = (docId) => {
-    setExpandedDocumentId(expandedDocumentId === docId ? null : docId);
+    // Function to toggle the expanded state of a document card
+    setExpandedDocumentId(expandedDocumentId === docId ? null : docId); // Switch expanded state
   };
 
-      const handleDelete = async (docId) => {
-        try {
-          removeDocument(docId); // Remove from context state
-        } catch (err) {
-          setError("Failed to delete document. Please try again.");
-        }
-      };
-
+  const handleDelete = async (docId) => {
+    // Async function to handle document deletion
+    try {
+      removeDocument(docId); // Attempt to remove document from context
+    } catch (err) {
+      setError("Failed to delete document. Please try again."); // Set error message on failure
+    }
+  };
 
   const handleSortChange = (e) => {
-    setSortOption(e.target.value);
+    // Function to handle sort option change
+    setSortOption(e.target.value); // Update sort option based on user selection
   };
 
-  const sortedDocuments = sortDocuments(documents, sortOption);
+  const sortedDocuments = sortDocuments(documents, sortOption); // Sort documents based on selected option
 
-  const indexOfLastDocument = currentPage * documentsPerPage;
-  const indexOfFirstDocument = indexOfLastDocument - documentsPerPage;
-  const currentDocuments = sortedDocuments.slice(indexOfFirstDocument, indexOfLastDocument);
+  // Calculate indices for pagination
+  const indexOfLastDocument = currentPage * documentsPerPage; // Last document index for current page
+  const indexOfFirstDocument = indexOfLastDocument - documentsPerPage; // First document index for current page
+  const currentDocuments = sortedDocuments.slice(indexOfFirstDocument, indexOfLastDocument); // Get current documents for display
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber); // Function to change the current page
 
+  // Determine what message to display based on loading/error states
   let message;
-
   if (loading || isLoading) {
     message = <div className="loading-message"> Loading Please Wait</div>;
   } else if (error) {
@@ -95,7 +101,7 @@ export const DocumentList = () => {
       {message}
 
       {loading || isLoading ? (
-        <LoadingSpinner />
+        <LoadingSpinner /> // Show loading spinner if loading
       ) : (
         <>
           {documents.length > 0 && (
@@ -104,19 +110,19 @@ export const DocumentList = () => {
                 {currentDocuments.map((doc) => (
                   <li key={doc.id} className="document-list-item">
                     <DocumentCard
-                      document={doc}
-                      isExpanded={expandedDocumentId === doc.id}
-                      onToggle={handleToggle}
-                      onDelete={handleDelete}
+                      document={doc} // Pass document object to DocumentCard
+                      isExpanded={expandedDocumentId === doc.id} // Determine if the card is expanded
+                      onToggle={handleToggle} // Pass the toggle function
+                      onDelete={handleDelete} // Pass the delete function
                     />
                   </li>
                 ))}
               </ul>
               <Pagination
-                documentsPerPage={documentsPerPage}
-                totalDocuments={documents.length}
-                paginate={paginate}
-                currentPage={currentPage}
+                documentsPerPage={documentsPerPage} // Set number of documents per page
+                totalDocuments={documents.length} // Set total number of documents
+                paginate={paginate} // Pass pagination function
+                currentPage={currentPage} // Set current page
               />
             </>
           )}

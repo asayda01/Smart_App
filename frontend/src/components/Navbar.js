@@ -1,12 +1,12 @@
-// src/components/Navbar.js
+// frontend/src/components/Navbar.js
 
 import React from "react";
-import "../styles/Navbar.css";
+import "../styles/Navbar.css"; // Import CSS styles for the Navbar component
 
-export const Navbar = () => {
+export const Navbar = () => { // Define the Navbar functional component
   return (
-    <nav className="navbar">
-      <div className="navbar-logo">
+    <nav className="navbar"> {/* Create a <nav> element for the navigation bar */}
+      <div className="navbar-logo"> {/* Create a container for the logo */}
         <a href="https://compu-j.com" target="_blank" rel="noopener noreferrer">
           <img src="/comp_j_logo.png" alt="Company Logo" className="logo" />
         </a>

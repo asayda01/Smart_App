@@ -1,20 +1,18 @@
 // frontend/src/components/deleteDocumentButton.js
 
 import React from "react";
-import { deleteDocumentApi } from "../services/api";
-import "../styles/deleteDocument.css";
+import { deleteDocumentApi } from "../services/api"; // Import API function to delete document
+import "../styles/deleteDocument.css"; // Import CSS styles
 
-const DeleteDocumentButton = ({ docId, fileName, onDelete }) => {
-  const handleDelete = async () => {
-    // Confirmation dialog
-    const isConfirmed = window.confirm(`Do you want to delete "${fileName}"?`);
-
+const DeleteDocumentButton = ({ docId, fileName, onDelete }) => { // Component to delete a document
+  const handleDelete = async () => { // Function to handle delete action
+    const isConfirmed = window.confirm(`Do you want to delete "${fileName}"?`); // Confirm deletion
     if (isConfirmed) {
       try {
-        await deleteDocumentApi(docId);
-        onDelete(docId); // Calls removeDocument from context
+        await deleteDocumentApi(docId); // Call API to delete document
+        onDelete(docId); // Call onDelete callback to update state
       } catch (error) {
-        alert("Failed to delete document");
+        alert("Failed to delete document"); // Show error message
       }
     }
   };
@@ -37,4 +35,4 @@ const DeleteDocumentButton = ({ docId, fileName, onDelete }) => {
   );
 };
 
-export default DeleteDocumentButton;
+export default DeleteDocumentButton; // Export DeleteDocumentButton component

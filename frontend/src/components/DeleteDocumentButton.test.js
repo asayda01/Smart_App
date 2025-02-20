@@ -12,7 +12,7 @@ test('renders DeleteDocumentButton component', () => {
 });
 
 test('handles delete button click', () => {
-
+  // Mock window.confirm to always return true
   global.window.confirm = jest.fn(() => true);
 
   const onDelete = jest.fn();
