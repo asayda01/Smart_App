@@ -1,0 +1,40 @@
+/* Container styling for the row */
+.document-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+/* Styling for the confidence level and delete button */
+.confidence-delete-container {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between Confidence Level and Delete button */
+}
+
+/* Delete button styling */
+.delete-document-btn {
+    background-color: #ff4d4d; /* Red color for delete */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.delete-document-btn:hover {
+    background-color: #cc0000; /* Darker red on hover */
+}
+
+/* Positioning under file time */
+.file-time-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.file-time-container .confidence-delete-container {
+    margin-top: 5px;
+}

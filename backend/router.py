@@ -89,3 +89,22 @@ async def get_documents(db: AsyncSession = Depends(get_db)):
     except Exception as e:
         logging.error(f"Error fetching documents: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.delete("/documents/{doc_id}/", summary="Delete a document by ID")
+async def delete_document(doc_id: int, db: AsyncSession = Depends(get_db)):
+    try:
+        result = await db.execute(Document.__table__.select().where(Document.id == doc_id))
+        document = result.scalar_one_or_none()
+
+        if document is None:
+            raise HTTPException(status_code=404, detail="Document not found")
+
+        await db.execute(Document.__table__.delete().where(Document.id == doc_id))
+        await db.commit()
+
+        return {"message": "Document deleted successfully"}
+
+    except Exception as e:
+        logging.error(f"Error deleting document: {str(e)}")
+        raise HTTPException(status_code=500, detail="Internal Server Error")

@@ -11,9 +11,8 @@ import "../styles/DocumentList.css";
 import "../styles/Common.css";
 import { sortDocuments } from "./sortDocuments";
 
-
 export const DocumentList = () => {
-  const { documents, setDocuments, error, setError } = useDocuments();
+  const { documents, setDocuments, error, setError, loading, removeDocument } = useDocuments();
   const [expandedDocumentId, setExpandedDocumentId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,6 +44,15 @@ export const DocumentList = () => {
     setExpandedDocumentId(expandedDocumentId === docId ? null : docId);
   };
 
+      const handleDelete = async (docId) => {
+        try {
+          removeDocument(docId); // Remove from context state
+        } catch (err) {
+          setError("Failed to delete document. Please try again.");
+        }
+      };
+
+
   const handleSortChange = (e) => {
     setSortOption(e.target.value);
   };
@@ -59,7 +67,7 @@ export const DocumentList = () => {
 
   let message;
 
-  if (isLoading) {
+  if (loading || isLoading) {
     message = <div className="loading-message"> Loading Please Wait</div>;
   } else if (error) {
     message = <ErrorDisplay error={error} />;
@@ -86,7 +94,7 @@ export const DocumentList = () => {
 
       {message}
 
-      {isLoading ? (
+      {loading || isLoading ? (
         <LoadingSpinner />
       ) : (
         <>
@@ -99,6 +107,7 @@ export const DocumentList = () => {
                       document={doc}
                       isExpanded={expandedDocumentId === doc.id}
                       onToggle={handleToggle}
+                      onDelete={handleDelete}
                     />
                   </li>
                 ))}

@@ -1,43 +1,117 @@
 /* frontend/src/styles/Upload.css */
 
-.dropzone {
-  border: 2px dashed #007bff;
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 450px; /* A bit more width for better content distribution */
+  margin: auto;
   padding: 20px;
+}
+
+.dropzone {
+  border: 3px dashed #1976d2;
+  padding: 35px;
   text-align: center;
   cursor: pointer;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  background: #eef5ff;
-  transition: background 0.3s, border-color 0.3s;
+  margin-bottom: 30px;
+  border-radius: 12px; /* Soft rounded corners */
+  background: #f5f5f5;
+  transition: background-color 0.3s, border-color 0.3s, transform 0.2s;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow to make the dropzone stand out */
 }
 
-.dropzone:hover {
-  background: #ddeeff;
-  border-color: #0056b3;
-}
-
+.dropzone:hover,
 .dropzone.active {
-  background: #ddeeff;
-  border-color: #0056b3;
+  background-color: #e3f2fd;
+  border-color: #1976d2;
+  transform: scale(1.02);
+}
+
+.dropzone-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.upload-progress-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.upload-progress-container h6 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1976d2;
+}
+
+.upload-progress-container p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
 }
 
 .uploading-alert {
   text-align: center;
-  font-size: 16px;
-  color: #007bff;
-  background: #eef5ff;
+  font-size: 14px;
+  color: white;
+  background: #1976d2;
   padding: 10px;
   border-radius: 8px;
-  margin-top: 10px;
+  margin-top: 20px;
   width: 100%;
+  max-width: 450px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transform-origin: center; /* Ensures the animation scales from the center */
+}
+
+.uploading-alert span {
+  font-weight: 600;
 }
 
 .error {
-  color: red;
+  color: #d32f2f; /* Strong red for better contrast */
   text-align: center;
-  margin-bottom: 10px;
-  background: #ffe6e6;
-  padding: 10px;
+  margin-bottom: 15px;
+  background: #fde0dc; /* Lighter red background for error */
+  padding: 12px;
   border-radius: 8px;
   width: 100%;
+  max-width: 450px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #e0e0e0;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.5s ease;
+}
+
+.progress-bar.upload {
+  background-color: #1976d2;
+}
+
+.progress-bar.classify {
+  background-color: #00bfae;
+}
+
+.file-type-info {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #888;
+  font-weight: 500;
 }

@@ -11,8 +11,7 @@ from transformers import pipeline
 from sentence_transformers import SentenceTransformer
 
 # Local Application/Library-Specific Imports
-from .utils import chunk_text_by_sentences, chunk_text_by_tokens, preprocess_text, extract_keywords, \
-    summarize_large_text
+from .utils import chunk_text_by_sentences, chunk_text_by_tokens, preprocess_text, summarize_large_text
 from .exceptions import ModelInferenceError
 
 # Initialize logging
@@ -57,10 +56,10 @@ def classify_text(text: str) -> Tuple[str, Dict[str, float]]:
 
         # Summarize large text if needed
         if len(text.split()) > SUMMARY_THRESHOLD:
-            text = summarize_large_text(text, summary_ratio=0.25)
+            text = summarize_large_text(text)
 
-        # Extract keywords for additional context
-        keywords = extract_keywords(text)
+        # # Extract keywords for additional context
+        # keywords = extract_keywords(text)
 
         # Chunk text to avoid model failure
         chunks = chunk_text_by_sentences(text)

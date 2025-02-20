@@ -14,14 +14,14 @@ from docx import Document as DocxDocument
 from transformers import AutoTokenizer, pipeline
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import sent_tokenize
-from sklearn.feature_extraction.text import TfidfVectorizer
+# from sklearn.feature_extraction.text import TfidfVectorizer
 
 # Download NLTK resources
 nltk.download('stopwords')
 nltk.download('wordnet')
 nltk.download('punkt')
 
-# Initialize the tokenizer for token counting (for BART)
+# Initialize the tokenizer for token counting
 tokenizer = AutoTokenizer.from_pretrained("facebook/bart-large-mnli")
 
 # Initialize summarization pipeline
@@ -57,16 +57,13 @@ def chunk_text_by_sentences(text: str, max_sentences: int = 7) -> list:
     sentences = sent_tokenize(text)
     chunks = []
     current_chunk = []
-    current_sentence_count = 0
 
     for sentence in sentences:
         current_chunk.append(sentence)
-        current_sentence_count += 1
 
-        if current_sentence_count >= max_sentences:
+        if len(current_chunk) >= max_sentences:
             chunks.append(' '.join(current_chunk))
             current_chunk = []
-            current_sentence_count = 0
 
     if current_chunk:
         chunks.append(' '.join(current_chunk))
@@ -74,11 +71,11 @@ def chunk_text_by_sentences(text: str, max_sentences: int = 7) -> list:
     return chunks
 
 
-def summarize_large_text(text: str, summary_ratio: float = 0.2) -> str:
+def summarize_large_text(text: str) -> str:
     """
     Summarize large text using BART summarization model with chunking.
     """
-    max_length = 500  # Limit each summarization chunk to 500 tokens (safe for BART)
+    max_length = 500  # Limit each summarization chunk to 500 tokens
     min_length = 100  # Ensure meaningful summaries
     chunked_texts = chunk_text_by_sentences(text, max_sentences=10)
 
@@ -94,11 +91,11 @@ def summarize_large_text(text: str, summary_ratio: float = 0.2) -> str:
     return " ".join(summaries) if summaries else text[:2000]  # Fallback if all chunks fail
 
 
-def extract_keywords(text: str, max_features: int = 10) -> list:
-    vectorizer = TfidfVectorizer(max_features=max_features)
-    tfidf_matrix = vectorizer.fit_transform([text])
-    feature_names = vectorizer.get_feature_names_out()
-    return feature_names.tolist()
+# def extract_keywords(text: str, max_features: int = 10) -> list:
+#     vectorizer = TfidfVectorizer(max_features=max_features)
+#     tfidf_matrix = vectorizer.fit_transform([text])
+#     feature_names = vectorizer.get_feature_names_out()
+#     return feature_names.tolist()
 
 
 def extract_text_from_file(file_path: str, file_extension: str) -> str:

@@ -1,13 +1,51 @@
+/* frontend/src/styles/ProgressBar.css */
+
 .progress-bar-container {
   width: 100%;
-  background-color: #e0e0e0;
-  border-radius: 8px;
+  height: 20px; /* Optimal height for visibility */
+  background-color: #f5f5f5; /* Softer light grey background for the bar */
+  border-radius: 12px; /* Rounded corners */
   overflow: hidden;
-  margin-top: 10px;
+  position: relative;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 
 .progress-bar {
-  height: 10px;
-  background-color: #007bff;
-  transition: width 0.3s ease;
+  height: 100%; /* Ensure the bar takes full height of the container */
+  width: 0%; /* Default width (0%) */
+  background: linear-gradient(90deg, #3f51b5 0%, #2196f3 100%); /* Default blue gradient */
+  transition: width 0.5s ease-in-out; /* Smooth width transition */
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  font-size: 14px; /* Slightly smaller text */
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3); /* Subtle text shadow for better contrast */
+}
+
+/* Uploading progress bar (dark blue) */
+.progress-bar.uploading {
+  background: linear-gradient(90deg, #0d47a1 0%, #1976d2 100%); /* Dark blue gradient */
+}
+
+/* Classification progress bar (dark green) */
+.progress-bar.classifying {
+  background: linear-gradient(90deg, #1b5e20 0%, #388e3c 100%); /* Dark green gradient */
+}
+
+/* Error progress bar (red) */
+.progress-bar.error {
+  background: linear-gradient(90deg, #f44336 0%, #e53935 100%); /* Red gradient */
+}
+
+/* Text inside the progress bar */
+.progress-text {
+  position: absolute;
+  width: 100%;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Stronger shadow for better readability */
 }

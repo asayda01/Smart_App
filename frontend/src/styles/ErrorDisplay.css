@@ -1,11 +1,54 @@
 /* frontend/components/ErrorDisplay.css */
 
+/* Main error container */
 .error-display {
-  color: red;
+  color: #b30000; /* Dark red for error message text */
   text-align: center;
-  margin-bottom: 10px;
-  background: #ffe6e6;
-  padding: 10px;
-  border-radius: 8px;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #ffcccc, #ff6666); /* Subtle gradient background */
+  padding: 15px 20px;
+  border-radius: 12px; /* Rounded corners for a softer look */
   width: 100%;
+  max-width: 500px; /* To prevent it from being too wide */
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Slight shadow to make it stand out */
+  position: relative; /* Needed for absolute positioning of the button */
+  transition: opacity 0.3s ease-in-out; /* Smooth fade out when dismissing */
+}
+
+.error-display p {
+  font-size: 16px;
+  font-weight: 600; /* Bold for better emphasis */
+  margin: 0; /* Remove any default margin */
+  padding: 0;
+  line-height: 1.5;
+}
+
+.dismiss-button {
+  background-color: #ff4d4d; /* Red background for button */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.dismiss-button:hover {
+  background-color: #ff1a1a; /* Darker red on hover */
+  transform: scale(1.1); /* Slightly enlarge the button on hover */
+}
+
+.dismiss-button:focus {
+  outline: none; /* Remove focus outline */
+}
+
+.error-display.fade-out {
+  opacity: 0;
 }

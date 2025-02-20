@@ -1,12 +1,13 @@
 // frontend/components/LoadingSpinner.js
 
 import React from "react";
+import { CircularProgress, Box } from '@mui/material';
 import "../styles/LoadingSpinner.css";
 
 export const LoadingSpinner = () => {
   return (
-    <div className="loading-spinner-container">
-      <div className="loading-spinner"></div>
-    </div>
+    <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+      <CircularProgress />
+    </Box>
   );
 };
