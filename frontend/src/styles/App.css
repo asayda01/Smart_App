@@ -51,3 +51,18 @@ h1 {
     right: 20px;
   }
 }
+
+.classifier-explanation {
+  font-size: 18px;
+  color: #444;
+  text-align: center;
+  margin-top: 1px;
+  font-weight: 500;
+  /* font-style: italic; */
+  background: linear-gradient(to right, #0056b3, #0091cc); /* Subtle gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* Makes gradient apply only to text */
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+

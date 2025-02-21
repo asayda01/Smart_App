@@ -14,8 +14,11 @@ function App() {
       <div className="app-container"> {/* Main container for the app */}
         <Navbar /> {/* Render the Navbar component */}
         <div className="container"> {/* Container for main content */}
-          <h1>Smart Document Classifier</h1> {/* App title */}
+          <h1>Smart App &trade; Document Classifier</h1> {/* App title */}
           <Upload /> {/* Render the Upload component */}
+          <p className="classifier-explanation">
+            Let AI analyze and categorize your documents with precision and ease.
+          </p> {/* Updated one-liner explanation */}
           <DocumentList /> {/* Render the DocumentList component */}
         </div>
         <Footer /> {/* Render the Footer component */}

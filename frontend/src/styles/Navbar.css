@@ -9,6 +9,7 @@
 
 .navbar-logo {
   margin-right: 50px;
+    margin-left: 20px; /* Add left margin to move the logo to the right */
 }
 
 .navbar-logo img {
@@ -25,7 +26,7 @@
   padding: 0;
   justify-content: center; /* Keep links centered */
   flex-grow: 1; /* Allow the list to grow and take up available space */
-  transform: translateX(-55px); /* Move the entire list slightly to the left */
+  transform: translateX(-75px); /* Move the entire list slightly to the left */
 }
 
 .navbar-item {
@@ -37,11 +38,15 @@
   text-decoration: none;
   font-weight: bold;
   font-size: 16px;
+  display: inline-block; /* This allows transform to work */
+  transition: transform 0.2s ease-in-out; /* Smooth animation */
 }
 
 .navbar-link:hover {
-  text-decoration: underline;
+  transform: scale(1.3); /* Makes the link 30% larger when hovered */
+  transition: transform 0.2s ease-in-out; /* Smooth transition effect */
 }
+
 
 html {
   scroll-behavior: smooth;
