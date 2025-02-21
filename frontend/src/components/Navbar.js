@@ -18,8 +18,31 @@ export const Navbar = () => { // Define the Navbar functional component
           </a>
         </li>
         <li className="navbar-item">
+          <a href="https://compu-j.com/#1" className="navbar-link" target="_blank" rel="noopener noreferrer">
+            Our services
+          </a>
+        </li>
+
+        <li className="navbar-item">
           <a href="http://localhost:3000/" className="navbar-link">
             Smart_App
+          </a>
+        </li>
+
+        <li className="navbar-item">
+          <a href="https://compu-j.com/#3" className="navbar-link" target="_blank" rel="noopener noreferrer">
+            Why Us
+          </a>
+        </li>
+        <li className="navbar-item">
+          <a href="https://compu-j.com/#4" className="navbar-link" target="_blank" rel="noopener noreferrer">
+            Careers
+          </a>
+        </li>
+        {/* Add the Contact Us link */}
+        <li className="navbar-item">
+          <a href="#contact-us" className="navbar-link">
+            Contact Us
           </a>
         </li>
       </ul>

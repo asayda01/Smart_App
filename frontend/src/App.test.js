@@ -1,12 +1,11 @@
 // frontend/src/App.test.js
 
 import React from "react";
+import { render, screen, waitFor } from "@testing-library/react";
 import App from "./App";
 import axios from "axios";
-import '@testing-library/jest-dom';
-import { render, screen, waitFor } from "@testing-library/react";
-
 jest.mock("axios");
+import '@testing-library/jest-dom';
 
 test("renders upload dropzone", async () => {
   // Mock the axios GET request

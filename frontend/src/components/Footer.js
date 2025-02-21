@@ -5,7 +5,7 @@ import "../styles/Footer.css";
 
 export const Footer = () => {
   return (
-    <footer className="footer">
+      <footer className="footer" id="contact-us">
       <div className="footer-content">
         <a href="https://compu-j.com" target="_blank" rel="noopener noreferrer">
           <img src="/comp_j_logo.png" alt="Company Logo" className="logo" />

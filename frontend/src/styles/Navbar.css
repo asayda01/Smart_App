@@ -4,6 +4,7 @@
   padding: 5px 5px;
   display: flex;
   align-items: center;
+  justify-content: space-between; /* This will push the logo to the left and the links to the right */
 }
 
 .navbar-logo {
@@ -22,6 +23,9 @@
   align-items: center;
   margin: 0;
   padding: 0;
+  justify-content: center; /* Keep links centered */
+  flex-grow: 1; /* Allow the list to grow and take up available space */
+  transform: translateX(-55px); /* Move the entire list slightly to the left */
 }
 
 .navbar-item {
@@ -37,4 +41,8 @@
 
 .navbar-link:hover {
   text-decoration: underline;
+}
+
+html {
+  scroll-behavior: smooth;
 }

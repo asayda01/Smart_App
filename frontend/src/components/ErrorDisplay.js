@@ -1,5 +1,3 @@
-// frontend/src/components/ErrorDisplay.js
-
 import React from "react";
 import "../styles/ErrorDisplay.css"; // Import CSS styles for the error display component
 
@@ -18,10 +16,12 @@ export const ErrorDisplay = ({ error, onDismiss }) => {
   // Render the error message and a dismiss button
   return (
     <div className="error-display"> {/* Main container for error display */}
-      <p>{error}</p> {/* Display the error message */}
-      <button onClick={handleDismiss} className="dismiss-button"> {/* Button to dismiss the error */}
-        X {/* Button text */}
-      </button>
+      <p>
+        {error} {/* Display the error message */}
+        <button onClick={handleDismiss} className="dismiss-button"> {/* Button to dismiss the error */}
+          X {/* Button text */}
+        </button>
+      </p>
     </div>
   );
 };
