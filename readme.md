@@ -112,6 +112,9 @@ Smart App is a web application that allows users to upload documents, classify t
 - **GET `/documents/`**: Fetch all uploaded documents.
   - Response: List of documents with metadata.
 
+- **DELETE `/documents/{doc_id}/`**: Delete a document by ID.
+  - Response: JSONResponse including a message.
+
 ---
 
 ## Database Schema
